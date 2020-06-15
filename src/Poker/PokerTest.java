@@ -1,6 +1,7 @@
 package Poker;
 
 import java.util.*;
+import java.util.function.ToIntFunction;
 
 public class PokerTest {
 
@@ -12,10 +13,44 @@ public class PokerTest {
     static int playerNum = 4;//先假設只有一個人在抽牌
     static Scanner input = new Scanner(System.in);
 
+
     //static Poker.Deck mainDeck=new Poker.Deck();
 
 
     public static void main(String[] args) {
+
+
+
+        Card card1=new Card(0,2);
+        Card card2=new Card(0,0);
+        Card card3=new Card(0,3);
+        Card card4=new Card(0,1);
+        Card card5=new Card(1,2);
+        Card card6=new Card(1,0);
+
+        Card card7=new Card(1,3);
+
+        Card card8=new Card(1,1);
+        ArrayList<Card> testDeck=new ArrayList<>();
+        testDeck.add(card1);
+        testDeck.add(card5);
+        testDeck.add(card2);
+        testDeck.add(card6);
+        testDeck.add(card3);
+        testDeck.add(card7);
+        testDeck.add(card4);
+
+
+
+        testDeck.add(card8);
+
+
+        System.out.println(testDeck);
+        System.out.println("==========================");
+        Collections.sort(testDeck,new CardComparator());
+        System.out.println(testDeck);
+
+
         Scanner input = new Scanner(System.in);
 
         PokerTest round = new PokerTest();
@@ -37,7 +72,9 @@ public class PokerTest {
                         }
                         break;
                     case 3:
+
                         for (Deck deck : playerDeck) {
+
                             deck.sorting();
 
                         }
@@ -186,27 +223,32 @@ public class PokerTest {
 //            System.out.println(c.getNumber() + "/" + c.getSuitNum());
 //
 //        }
-        handDeck.forEach(c -> System.out.println(c.getNumber()+"/"+c.getSuitNum()));
+        handDeck.forEach(c -> System.out.println(c.getNumber() + "/" + c.getSuitNum()));
 
 
     }
 
 
-    class deckSort implements Comparator {
-
-        /*@Override
-        public int compare(Poker.Card card1, Poker.Card card2) {
-            int num1=card1.getNumber();
-            int num2=card2.getNumber();
-            String suit1=card1.getSuits();
-            return 0;
-        }*/
+    static class CardComparator implements Comparator<Card> {
 
         @Override
-        public int compare(Object o1, Object o2) {
-            return 0;
+        public int compare(Card card1, Card card2) {
+            int sort = 0;
+            int x = card1.getNumber() - card2.getNumber();
+            if (x != 0) {
+                sort = (x > 0) ? 1 : -1;
+
+            } else {
+                x = card1.getSuitNum() - card2.getSuitNum();
+                if (x != 0) {
+                    sort = (x > 0) ? 1 : -1;
+                }
+            }
+            return sort;
+
         }
     }
-
-
 }
+
+
+
