@@ -14,11 +14,7 @@ public class PokerTest {
     static Scanner input = new Scanner(System.in);
 
 
-    //static Poker.Deck mainDeck=new Poker.Deck();
-
-
     public static void main(String[] args) {
-
 
 
         Card card1=new Card(0,2);
@@ -40,16 +36,32 @@ public class PokerTest {
         testDeck.add(card7);
         testDeck.add(card4);
 
-
+        
 
         testDeck.add(card8);
 
 
         System.out.println(testDeck);
-        System.out.println("==========================");
+        System.out.println("==========按照文字=========");
+        Collections.sort(testDeck,Comparator.comparing(Card::getSuitText));
+
+        System.out.println(testDeck);
+        System.out.println("==========文字反向=========");
+        Collections.sort(testDeck,Comparator.comparing(Card::getSuitText).reversed());
+        System.out.println(testDeck);
+
+        System.out.println("=========直接用lamda調用預設Comparator方法");
+        Collections.sort(testDeck,Comparator.comparingInt(Card::getNumber));
+
+        System.out.println(testDeck);
+        System.out.println("==========調用另外寫的Comparator========");
         Collections.sort(testDeck,new CardComparator());
         System.out.println(testDeck);
 
+
+        System.out.println("============反排============");
+        Collections.sort(testDeck,Comparator.reverseOrder());
+        System.out.println(testDeck);
 
         Scanner input = new Scanner(System.in);
 
@@ -92,7 +104,7 @@ public class PokerTest {
                         round.init();
                         break;
                     case 6:
-                        //System.out.println("牌庫目前點數"+mainDeck.countDeckValue());
+
                         for (int i = 0; i < playerDeck.size(); i++) {
                             System.out.println("玩家" + i + "的點數總和為" + BlackJackRule.cardPoint(playerDeck.get(i)));
                             if (BlackJackRule.overLimit(playerDeck.get(i))) {
@@ -110,60 +122,6 @@ public class PokerTest {
             }
         }
 
-       /* Poker.PokerTest round = new Poker.PokerTest();
-
-        round.init();
-        round.shuffle();
-        round.drawCard(initDraw);
-        round.showHandDeck();
-        round.showDeck();*/
-
-        //ArrayList<Poker.Card> deck=round.createDeck();
-
-
-       /* ArrayList<Poker.Card> cards = new ArrayList<>();
-        for (int i = 1; i <= 13; i++) {
-            for (int j = 0; j <= 3; j++) {
-                Poker.Card card = new Poker.Card(i, j);
-                cards.add(card);
-
-            }
-        }
-        for (Poker.Card c : cards) {
-
-            System.out.println(c.getNumber() + "/" + c.getSuits());
-        }
-
-        System.out.println("用ArrayList創牌組,用Collections洗牌==================================");
-        for (int i = 0; i < cards.size(); i++) {
-            int j = (int) (Math.random() * cards.size());
-            Collections.swap(cards, i, j);
-
-        }
-
-        for (Poker.Card c : cards) {
-
-            System.out.println(c.getNumber() + "/" + c.getSuits());
-        }
-
-        System.out.println("下面用一般陣列創牌組並洗牌================================");
-        Poker.Card[] cardDeck = new Poker.Card[52];
-        for (int i = 0; i < 13; i++) {
-            for (int j = 0; j < 4; j++) {
-                cardDeck[i * 4 + j] = new Poker.Card(i + 1, j);
-
-            }
-        }
-        for (int i = 0; i < cardDeck.length; i++) {
-            int j = (int) (Math.random() * cardDeck.length);
-            Poker.Card temp = cardDeck[i];
-            cardDeck[i] = cardDeck[j];
-            cardDeck[j] = temp;
-        }
-        for (Poker.Card c : cardDeck) {
-
-            System.out.println(c.getNumber() + "/" + c.getSuits());
-        }*/
     }
 
     public static void drawAction() {
@@ -183,11 +141,7 @@ public class PokerTest {
 
     public void init() {
 
-        //第一個陣列,是拿來初始化牌庫的
-//        if (!deck.isEmpty()) {
-//            System.out.println("清除牌庫");
-//
-//        }
+
         mainDeck.clearDeck();//清空
         mainDeck.newDeck();//重新創一副52張牌的新牌庫
         System.out.println("創建新牌庫");
@@ -247,6 +201,8 @@ public class PokerTest {
             return sort;
 
         }
+
+
     }
 }
 

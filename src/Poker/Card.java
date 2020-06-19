@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 public class Card implements Comparable<Card> {
-    private final String suitString[] = {"spade", "hearts", "diamond", "club"};
+    private final String suitString[] = {"aspade", "bhearts", "cdiamond", "dclub"};
     private final String rankText[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     private final String ruleType[] = {"BJ", "Tt"};
     private String currentRule = ruleType[0];
@@ -119,7 +119,7 @@ public class Card implements Comparable<Card> {
     public String toString() {
         return "Card{" +
                 "number=" + rankText[number] +
-                ", suitNum=" + suitString[suitNum] +
+                ", suitText=" + suitString[suitNum] +
                 '}';
     }
 

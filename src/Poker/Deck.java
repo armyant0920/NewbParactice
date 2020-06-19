@@ -54,18 +54,15 @@ public class Deck {
         Collections.shuffle(deck);
         deck.forEach(c-> System.out.println(c.getRankText()+"/"+c.getSuitText()));
 
-//        for (Card c : deck) {
-//            System.out.println(c.getRankText() + "/" + c.getSuitText());
-//        }
-
     }
 
     public void sorting() {
         System.out.println("--整理前--");
-        for (Card c : deck) {
-
-            System.out.println(c.getRankText() + "/" + c.getSuitText());
-        }
+        deck.forEach(c-> System.out.println(c.getRankText()+"/"+c.getSuitText()));
+//        for (Card c : deck) {
+//
+//            System.out.println(c.getRankText() + "/" + c.getSuitText());
+//        }
 
         for (int i = 0; i < deck.size(); i++) {
             for (int j = 0; j < deck.size() - 1; j++) {
