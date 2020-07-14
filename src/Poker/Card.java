@@ -15,13 +15,8 @@ public class Card implements Comparable<Card> {
     //預設值黑桃A
     private int number = 0;
     private int suitNum = 0;
-
-
     public Card() {
 
-
-//        this.number=1;
-//        this.suitNum =0;
     }
 
     public void setRule(int i) {//考慮用這種方式
@@ -123,9 +118,6 @@ public class Card implements Comparable<Card> {
                 '}';
     }
 
-/*    @Override
-    public int hashCode() {
-        return Objects.hash(number, suitNum, value);
-    }*/
+
 }
 
