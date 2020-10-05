@@ -40,6 +40,10 @@ public class Dichotomy {
 
 
     }
+    private static String converDate(Date date){
+        SimpleDateFormat sd = new SimpleDateFormat("hh:mm:ss:SSS");
+        return sd.format(date);
+    }
 
     private static void bubble(int[] arr) {
 
@@ -73,6 +77,7 @@ public class Dichotomy {
         size = inputInteger();
         if (code == 1) {
             //輸入code=1,使用int[]測驗
+            String sortFunc="int[]存取&氣泡排序";
             int arr[] = new int[size];
             for (int i = 0; i < arr.length; i++) {
 //               因為使用最小數值作為基數,直接使用nextInt可能會出現溢位(即大於int上限2^31),
@@ -84,18 +89,17 @@ public class Dichotomy {
                 }
             }
             printArr(arr);
+            System.out.println("資料新增完畢");
             Date start = new Date();
-            System.out.printf("排序開始時間%s\n", getTime());
-            long beginTime = System.nanoTime();
-            System.out.println(System.nanoTime());
+
+
+
             bubble(arr);
             Date end = new Date();
-            long endTime = System.nanoTime();
+
             printArr(arr);
-            long diff = end.getTime() - start.getTime();
-            System.out.printf("排序結束時間%s\n", getTime());
-            System.out.printf("排序花費時間%dms\n", diff);
-            System.out.printf("花費ns:%d", endTime - beginTime);
+
+           countTime(sortFunc,start,end);
 
             while (true) {
                 System.out.println("輸入搜尋目標");
@@ -109,6 +113,7 @@ public class Dichotomy {
             }
 
         } else if (code == 2) {
+            String sortFunc="ArrayList排序";
             //code=2,使用Arraylist測驗
             ArrayList<Integer> list = new ArrayList<>();
 
@@ -116,14 +121,14 @@ public class Dichotomy {
                 list.add(rnd.nextInt());
             }
             printList(list);
+            System.out.println("資料新增完畢");
             Date start = new Date();
-            System.out.println("ArrayList排序" + getTime());
 
             list.sort(Comparator.naturalOrder());
             printList(list);
             Date end = new Date();
-            System.out.println("ArrayList排序結束" + getTime());
-            System.out.printf("排序花費時間%dms\n", end.getTime() - start.getTime());
+
+            countTime(sortFunc,start,end);
 
             while (true) {
                 System.out.println("輸入搜尋目標");
@@ -133,7 +138,7 @@ public class Dichotomy {
                 System.out.println((result != -1) ? "目標位置在" + result : "找不到");
             }
         } else if (code == 3) {
-
+            String sortFunc="int[]存取&shaker排序";
             //輸入code=1,使用int[]測驗
             int arr[] = new int[size];
             for (int i = 0; i < arr.length; i++) {
@@ -143,18 +148,14 @@ public class Dichotomy {
                 }
             }
             printArr(arr);
-            //Date start = new Date();
-           // System.out.printf("排序開始時間%s\n", getTime());
-           // long beginTime = System.nanoTime();
-            //System.out.println(System.nanoTime());
+            System.out.println("資料新增完畢");
+            Date start = new Date();
+
             shaker(arr);
-            //Date end = new Date();
-            //long endTime = System.nanoTime();
+            Date end = new Date();
+
             printArr(arr);
-            //long diff = end.getTime() - start.getTime();
-            //System.out.printf("排序結束時間%s\n", getTime());
-            //System.out.printf("排序花費時間%dms\n", diff);
-            //System.out.printf("花費ns:%d", endTime - beginTime);
+            countTime(sortFunc,start,end);
 
             while (true) {
                 System.out.println("輸入搜尋目標");
@@ -193,9 +194,9 @@ public class Dichotomy {
     }
 
     private static void shaker(int[] arr) {
-        long begin,end;
+//        long begin,end;
         int i, temp, left = 0, right = arr.length - 1, shift = 0;
-        begin=System.nanoTime();
+//        begin=System.nanoTime();
         while (left < right) {
             for (i = left; i < right; i++) {
                 if (arr[i] > arr[i + 1]) {
@@ -216,8 +217,8 @@ public class Dichotomy {
             }
             left = shift;
         }
-        end=System.nanoTime();
-        System.out.println("花費時間"+(end-begin)+"ns");
+//        end=System.nanoTime();
+//        System.out.println("花費時間"+(end-begin)+"ns");
     }
 
 
@@ -268,6 +269,17 @@ public class Dichotomy {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private static void countTime(String s,Date t1,Date t2){
+
+        long diff = t2.getTime() - t1.getTime();
+        System.out.printf("%s開始時間:%s\n",s,converDate(t1));
+        System.out.printf("%s結束時間:%s\n",s,converDate(t2));
+        System.out.printf("%s花費時間 %dms\n",s, diff);
+
+
+
     }
 
 

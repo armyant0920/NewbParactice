@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class CheckID {
     static BufferedReader keyin;
@@ -12,8 +14,8 @@ public class CheckID {
 
         while (true) {
             System.out.println("選擇功能,1:驗證身分證號碼有效性 2:依條件產生身分證號碼");
-            String s=keyin.readLine();
-            c=s.toCharArray();
+            String s = keyin.readLine();
+            c = s.toCharArray();
 //            c=   keyin.readline();
             System.out.println(s);
             switch (c[0]) {
@@ -25,6 +27,7 @@ public class CheckID {
                 default:
                     System.out.println("無效操作碼");
             }
+            System.out.println("done");
             /*System.out.println("選擇功能,1:驗證身分證號碼有效性 2:依條件產生身分證號碼");
 
             System.out.print("請輸入身分證字號:");
@@ -303,9 +306,63 @@ public class CheckID {
 
     public static void createID() throws IOException {
         System.out.print("身分證第一個字元");
+        String s = inputString(1);
+        char first = s.toUpperCase().charAt(0);
 
-        String s = keyin.readLine();
+        if (first < 65 || first > 90) {
+            throw new InputMismatchException("請輸入英文字母1碼");
+        }
 
+        System.out.println("請輸入性別 1.男 2.女");
+        int gender = inputInteger();
+        if (gender < 1 || gender > 2) {
+            throw new InputMismatchException("請輸入1or2");
+        }
+
+    }
+
+    private static int inputInteger() {
+
+        while (true) {
+            System.out.println("plz input Integer");
+            Scanner input = new Scanner(System.in);
+            try {
+                if (!input.hasNextInt()) {
+                    throw new InputMismatchException("請輸入int整數");
+                }
+
+                return input.nextInt();
+
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
+
+
+    private static String inputString() {
+
+        while (true) {
+            System.out.println("plz input string");
+            Scanner input = new Scanner(System.in);
+            String s = input.nextLine();
+            return s;
+        }
+    }
+
+    private static String inputString(int len) {//限定長度
+
+        while (true) {
+            System.out.println("plz input string");
+            Scanner input = new Scanner(System.in);
+            String s = input.nextLine();
+            if (s.length() > len) {
+                System.out.printf("請輸入%d個文字", len);
+            } else {
+                return s;
+            }
+        }
     }
 
 }

@@ -41,6 +41,7 @@ public class TwoSum {
 
             int answer[] = (getAnswer(nums, target));
             System.out.print("位置是");
+            System.out.printf("位置是%d/%d\n",answer[0],answer[1]);
             for (int num : answer) {
                 System.out.print(num + " ");
             }
@@ -55,7 +56,7 @@ public class TwoSum {
         int answer[] = new int[2];
         for (int i = 0; i < nums.length; i++) {
 
-            for (int j = +1; j < nums.length - 1; j++) {
+            for (int j = i+1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
                     answer[0] = i;
                     answer[1] = j;

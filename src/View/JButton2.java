@@ -11,8 +11,8 @@ public class JButton2 {
         new JButton2();
     }
     public JButton2() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
+//        JFrame.setDefaultLookAndFeelDecorated(true);
+//        JDialog.setDefaultLookAndFeelDecorated(true);
         f=new JFrame("JButton1");
         f.setBounds(0,0,400,300);
         f.setVisible(true);

@@ -26,11 +26,14 @@ public class MapData {
 
 
         }
-
+        System.out.println("=========================block=========================" +
+                "");
         myMap.forEach((a,b)->{
             System.out.println(a+"/"+b);
         });
-
+        /*
+        如果用map的資料結構建立遊戲地圖圖層
+         */
 
 
     }

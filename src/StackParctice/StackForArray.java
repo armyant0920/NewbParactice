@@ -36,7 +36,7 @@ public class StackForArray {
             System.out.println("堆疊已空");
         }
     }
-    public void peekData(){//pop只差在有沒有刪除,所以index不動就好
+    public void peekData(){//跟pop只差在有沒有刪除,所以index不動就好
         if(index>0){
             String s=names[index-1];
             System.out.printf("peek-->[%d],資料為-->[%s]\n",index,s);
