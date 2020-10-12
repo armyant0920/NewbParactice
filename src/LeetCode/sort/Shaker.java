@@ -1,4 +1,4 @@
-package LeeCode.sort;
+package LeetCode.sort;
 
 public class Shaker {
 

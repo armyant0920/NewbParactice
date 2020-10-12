@@ -1,6 +1,6 @@
 package School;
 
-public class Teacher extends Employee implements MyClass{
+public class Teacher extends Employee implements MyClass,Salary{
 
     private double bonus;//比如說預設全勤獎金為1000
 
@@ -68,6 +68,13 @@ public class Teacher extends Employee implements MyClass{
 
         return total;
     }
+
+    @Override
+    public void setAccount(int i) {
+
+    }
+
+
 
     @Override
     public String getMyClass() {

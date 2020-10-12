@@ -1,6 +1,4 @@
-package LeeCode;
-
-import jdk.swing.interop.SwingInterOpUtils;
+package LeetCode;
 
 import java.util.Random;
 import java.util.Scanner;

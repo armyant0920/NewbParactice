@@ -1,4 +1,4 @@
-package LeeCode;
+package LeetCode;
 
 public class NodeList {//環狀鍊表
     Node first;

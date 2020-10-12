@@ -38,9 +38,7 @@ public class Student extends SchoolMember{
         this.myClass = myClass;
     }
 
-    public Student(String name, int age, String gender) {
-        super(name, age, gender);
-    }
+
 
     public int getSeatID() {
         return seatID;
@@ -48,6 +46,17 @@ public class Student extends SchoolMember{
 
     public void setSeatID(int seatID) {
         this.seatID = seatID;
+    }
+
+    @Override
+    public String getDesc() {
+        String desc= super.getDesc();
+        desc+="Student{" +
+                "grade="+grade+
+                ", myClass=" + myClass +
+                ", seatID='" + seatID + '\'' +
+                '}';
+        return  desc;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package LeeCode;
+package LeetCode;
 
 import javax.swing.*;
 import java.awt.*;

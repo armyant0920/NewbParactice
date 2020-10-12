@@ -13,7 +13,7 @@ import java.util.Random;
  * show 詳細說明第二行
  */
 
-public class Square implements ActionListener {//extends Canvas
+public class Square implements ActionListener,Movement{//extends Canvas
 
     float width;//寬
     float height;//高
@@ -23,6 +23,8 @@ public class Square implements ActionListener {//extends Canvas
     int posX;//X座標
     int posY;//Y座標
     int middleX, middleY;
+    int angle;
+    Point point;
     Sample sample;
     JPanel panel;
     Color color;//矩形的顏色
@@ -68,7 +70,10 @@ public class Square implements ActionListener {//extends Canvas
         推測如果在執行過程中執行最大最小化,會連帶改動到panel的大小
 
          */
+
+
         this.posY = rnd.nextInt(panel.getHeight());//rnd.nextInt(480);
+        this.point=new Point(posX,posY);
         //隨機寬
         this.width = rnd.nextInt(200) + 100;
         //隨機高
@@ -83,6 +88,7 @@ public class Square implements ActionListener {//extends Canvas
         this.color = new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256), 128);
         //隨機計數,至少為10,每次間隔減少該值,歸零時將此物件刪除
         this.lifetime = rnd.nextInt(10) + 10;
+        this.angle= rnd.nextInt(360);
 
         //設定計時器;
 
@@ -120,12 +126,15 @@ public class Square implements ActionListener {//extends Canvas
 
         if (lifetime > 0) {
             lifetime--;//壽命處理
-            int angle = new Random().nextInt(360);
-            posX += speed * Math.cos(angle);
+//            int angle = new Random().nextInt(360);
+//            posX += speed * Math.cos(angle);
+//            posY += speed * Math.sin(angle);
+            pointTranslate();
+            middleX= point.x/2;
+            middleY=point.y/2;
 
-            posY += speed * Math.sin(angle);
-            middleX = (int) ((posX + width) / 2);
-            middleY = (int) ((posY + height) / 2);
+//            middleX = (int) ((posX + width) / 2);
+//            middleY = (int) ((posY + height) / 2);
 
         } else {
             stop();
@@ -137,9 +146,27 @@ public class Square implements ActionListener {//extends Canvas
         this.width = width;
         this.height = height;
 
+
     }
 
     public void reset(int lifetime) {
         this.lifetime = lifetime;
+    }
+
+    @Override
+    public void pointTranslate() {
+          point.translate((int) (speed * Math.cos(Math.toRadians(angle))), (int) (speed * Math.sin(Math.toRadians(angle))));
+
+
+
+    }
+
+    @Override
+    public boolean collision() {
+
+
+        return true;
+
+
     }
 }

@@ -1,9 +1,4 @@
-package LeeCode;
-
-import StackParctice.LinkedListStack;
-
-import javax.swing.*;
-import java.util.ArrayList;
+package LeetCode;
 
 public class ListData {
     //為了方便模擬,規定只能輸入>0的值,刪除特定

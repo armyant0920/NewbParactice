@@ -28,8 +28,9 @@ public class Sample implements ActionListener {
     }
 
 
-    private static final int WIDTH = 480;//控制面板寬度
-    private static final int HEIGHT = 480;//控制面板高度
+    private static final int WIDTH = 600;//控制面板寬度
+    private static final int HEIGHT = 600;//控制面板高度
+
     private JButton btn;
     private JFrame frame;
     JPanel drawPanel, controlPanel,buttonPanel;
@@ -97,9 +98,9 @@ public class Sample implements ActionListener {
                 for (int i = 0; i < items.size(); i++) {
                     g.setColor(items.get(i).color);
                     switch (shape){
-                        case 0:g.fillRect(items.get(i).posX, items.get(i).posY, (int) items.get(i).width, (int) items.get(i).height);
+                        case 0:g.fillRect(items.get(i).point.x, items.get(i).point.y, (int) items.get(i).width, (int) items.get(i).height);
                         break;
-                        case 1:g.fillOval(items.get(i).posX, items.get(i).posY, (int) items.get(i).width, (int) items.get(i).height);
+                        case 1:g.fillOval(items.get(i).point.x, items.get(i).point.y, (int) items.get(i).width, (int) items.get(i).height);
                         break;
 
                     }
@@ -287,7 +288,7 @@ public class Sample implements ActionListener {
                 getImage());
 //        frame.setSize(WIDTH,HEIGHT);
 //        frame.setBounds(0, 0, WIDTH, HEIGHT);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);//視窗最大化狀態
+//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);//視窗最大化狀態
         /*或者直接抓大小
         frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         frame.setLocation(0,0);

@@ -36,6 +36,19 @@ public class SchoolMember {
         this.gender = gender;
     }
 
+
+    public String getDesc(){
+        String desc="SchoolMember{" +
+                "SchoolName='" + SchoolName + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                '}';
+        return desc;
+
+
+    }
+
     @Override
     public String toString() {
         return "SchoolMember{" +

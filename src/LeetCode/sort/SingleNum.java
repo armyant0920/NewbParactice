@@ -1,4 +1,4 @@
-package LeeCode.sort;
+package LeetCode.sort;
 
 import java.util.Random;
 import java.util.Scanner;

@@ -9,6 +9,8 @@ public class NewMember {
         SchoolMember people2=new Teacher("王村姑",50,"Female",30000,"台銀123");
 
         SchoolMember people3=new PartTime("王小明",18,"Male");
+
+
         showInfo(people1);
         System.out.println("-------");
         Teacher teacher=(Teacher) people2;
