@@ -78,6 +78,7 @@ public class Dichotomy {
         if (code == 1) {
             //輸入code=1,使用int[]測驗
             String sortFunc="int[]存取&氣泡排序";
+            Date start = new Date();
             int arr[] = new int[size];
             for (int i = 0; i < arr.length; i++) {
 //               因為使用最小數值作為基數,直接使用nextInt可能會出現溢位(即大於int上限2^31),
@@ -89,16 +90,13 @@ public class Dichotomy {
                 }
             }
             printArr(arr);
-            System.out.println("資料新增完畢");
-            Date start = new Date();
-
-
-
-            bubble(arr);
             Date end = new Date();
+            countTime("資料新增及列印",start,end);
 
+            start=new Date();
+            bubble(arr);
             printArr(arr);
-
+            end=new Date();
            countTime(sortFunc,start,end);
 
             while (true) {
