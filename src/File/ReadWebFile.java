@@ -8,7 +8,7 @@ public class ReadWebFile {
 
 
     public static void main(String[] args) {
-        String path = "https://youtu.be/HNjZdVJ845Q";
+        String path = "https://www.tsa.gov.tw/tsa/get_parkjason.aspx";
         try {
             java.net.URL url=new  java.net.URL(path);//設定URL物件
             int count=0;//

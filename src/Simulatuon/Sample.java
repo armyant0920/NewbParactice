@@ -15,21 +15,24 @@ import java.util.Random;
  */
 
 public class Sample implements ActionListener {
-    static class myCanvas extends Canvas {
-        public myCanvas() {
-            setSize(Sample.WIDTH, Sample.HEIGHT);
-
-        }
-
-        public void paint(Graphics g) {
-            g.setColor(Color.RED);;
-            g.fillRect(0, 0, 200, 200);
-        }
-    }
+//    static class myCanvas extends Canvas {
+//        public myCanvas() {
+//            setSize(Sample.WIDTH, Sample.HEIGHT);
+//
+//        }
+//
+//        public void paint(Graphics g) {
+//            g.setColor(Color.RED);;
+//            g.fillRect(0, 0, 200, 200);
+//        }
+//    }
 
 
     private static final int WIDTH = 600;//控制面板寬度
     private static final int HEIGHT = 600;//控制面板高度
+    Point target;//初始目標點
+    private static Timer timer;
+
 
     private JButton btn;
     private JFrame frame;
@@ -37,7 +40,7 @@ public class Sample implements ActionListener {
 //    private Timer timer;
     private JComboBox box;//下拉選單容器
     private static final String shapes[] = {"Rect", "Circle"};
-    private static int shape=0;//預設值
+    private static int shape=1;//預設值
     private static final int HINT_TEXT_SIZE = 20;
     private JLabel label;
     //所有產生物件透過此變數操作,目前型別先固定,未來應該放父類shapes
@@ -49,6 +52,7 @@ public class Sample implements ActionListener {
 
     public Sample() {
         //置中可從Swing常數取得,
+        timer=new Timer(500,this);//反應間格
 
         //建立視窗並命名
         frame = new JFrame("SAMPLE");
@@ -64,6 +68,14 @@ public class Sample implements ActionListener {
             public void paint(Graphics g) {
                 super.paint(g);
 
+
+                g.setColor(Color.RED);
+                if(target==null){
+                    target=drawPanel.getBounds().getLocation();
+                    }
+
+
+                g.fillOval(target.x,target.y,10,10);
                 /*for (Square s : items) {
 
 
@@ -106,24 +118,25 @@ public class Sample implements ActionListener {
                     }
 
                     //設定文字顏色
-                    g.setColor(Color.WHITE);
-                    g.setFont(new Font("???", Font.BOLD, 30));
-                    g.drawString("remain:" + items.get(i).lifetime, items.get(i).middleX, items.get(i).middleY);
+//                    g.setColor(Color.WHITE);
+//                    g.setFont(new Font("???", Font.BOLD, 30));
+//                    g.drawString("remain:" + items.get(i).lifetime, items.get(i).middleX, items.get(i).middleY);
                     if (items.get(i) != null && items.get(i).lifetime > 0) {
 
                     } else {
 
-                        System.out.println("移除了" + items.get(i).toString());
+//                        System.out.println("移除了" + items.get(i).toString());
                         items.remove(items.get(i));
                         i--;
-                        System.out.printf("目前還有%d個item\n", items.size());
+//                        System.out.printf("目前還有%d個item\n", items.size());
 
                     }
                 }
             }
         };
         //設定面板初始背景為灰色
-        drawPanel.setBackground(Color.gray);
+        drawPanel.setBackground(Color.BLACK);
+
         //設定面板大小
 //        panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         buttonPanel =new JPanel();
@@ -235,9 +248,7 @@ public class Sample implements ActionListener {
 
 
         //設定按鈕
-        btn = new
-
-                JButton("加入物件");
+        btn = new JButton("加入物件");
 
         btn.setForeground(Color.RED);
         btn.setIcon(new ImageIcon("src/ImageFile/plusicon.png"));
@@ -332,18 +343,48 @@ public class Sample implements ActionListener {
 
             }
         });
+        //要監聽滑鼠移動,必須用..
+
+        drawPanel.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                target=new Point(e.getX(),e.getY());
+                drawPanel.repaint();
+
+            }
+        });
+
         //設定滑鼠監聽事件
-        frame.addMouseListener(new MouseListener() {
+        drawPanel.addMouseListener(new MouseListener() {
+
+
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("滑鼠已點擊");
 
             }
 
+
             @Override
+
             public void mousePressed(MouseEvent e) {
 
                 System.out.printf("滑鼠已按下%s按鍵,位置在(%d,%d),絕對位置在(%d,%d)",e.getButton(),e.getX(),e.getY(),e.getXOnScreen(),e.getYOnScreen());
+
+//                if(e.getButton()==3){
+//
+//                    target=new Point(e.getX(),e.getY());
+//                    drawPanel.repaint();
+//
+//
+//                }
 
             }
 
@@ -376,6 +417,7 @@ public class Sample implements ActionListener {
         //設定視窗的相對位置,從說明文字可以看出,如果沒有相對目標,就是全螢幕中心
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        timer.start();
 
 
     }
@@ -390,6 +432,24 @@ public class Sample implements ActionListener {
             label.setFont(new Font("細明體", Font.BOLD, 20));
             System.out.printf("%s%n", "actionPerformed called");
         }*/
+
+        if (e.getSource() == timer) {
+
+
+            int temp=new Random().nextInt(4)+1;
+            for(int i=1;i<=temp;i++){
+                square = new Square(this, drawPanel);//, this
+//                frame.add(square);
+
+//                System.out.println("矩形資訊" + square.toString());
+                items.add(square);
+            }
+
+
+        }
+
+
+
         if(e.getSource() instanceof  JMenu){
             JMenu menu=(JMenu)e.getSource();
             System.out.println(menu.getName()+ "is clicked");
@@ -410,11 +470,15 @@ public class Sample implements ActionListener {
         if (e.getSource() == btn) {//如果事件觸發來源是加入按鈕
             System.out.printf("按下了%s按鈕\n", btn.getText());
             if (btn.getText() == "加入物件") {
+
+                int temp=new Random().nextInt(4)+1;
+                for(int i=1;i<=temp;i++){
                 square = new Square(this, drawPanel);//, this
 //                frame.add(square);
 
                 System.out.println("矩形資訊" + square.toString());
                 items.add(square);
+                }
               /*  for (Square s : items) {
                     System.out.println(s.toString());
 
@@ -431,7 +495,7 @@ public class Sample implements ActionListener {
         }
 
 //        drawPanel.repaint();
-        System.out.printf("actionPerformed called:%s,事件時間:%tT\n",e.getActionCommand(),e.getWhen());
+//        System.out.printf("actionPerformed called:%s,事件時間:%tT\n",e.getActionCommand(),e.getWhen());
 
 
 //            }else{

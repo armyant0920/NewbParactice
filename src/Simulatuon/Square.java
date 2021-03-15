@@ -18,8 +18,9 @@ public class Square implements ActionListener,Movement{//extends Canvas
     float width;//寬
     float height;//高
     int lifetime;//計數器
+    int maxlife;//初始壽命
     float interval;//計時器間隔
-    int speed = 20;//移動速度
+    int speed = 50;//移動速度
     int posX;//X座標
     int posY;//Y座標
     int middleX, middleY;
@@ -31,7 +32,14 @@ public class Square implements ActionListener,Movement{//extends Canvas
     Timer timer;//此物件的計時器(注意!!不是unit的Timer,是Swing的)
     ActionListener listener;
 
-   /* @Override
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+/* @Override
     public void print(Graphics g) {
         super.print(g);
         g.setColor(this.color);
@@ -65,35 +73,61 @@ public class Square implements ActionListener,Movement{//extends Canvas
         Random rnd = new Random();
 
         //設定初始位置
-        this.posX = rnd.nextInt(panel.getWidth());//根據面板大小決定隨機X座標
+
         /*
         推測如果在執行過程中執行最大最小化,會連帶改動到panel的大小
-
          */
 
+//        this.posX = rnd.nextInt(panel.getWidth());//根據面板大小決定隨機X座標
+//        this.posY = rnd.nextInt(panel.getHeight());//rnd.nextInt(480);
 
-        this.posY = rnd.nextInt(panel.getHeight());//rnd.nextInt(480);
+        //2021.2.17 嘗試改成由任意邊界位置產生新物件,邏輯為隨機決定x軸或y軸為0orMax,另一軸為該軸的範圍內隨機值
+        if(rnd.nextBoolean()){
+            //若以X軸為邊界
+            if(rnd.nextBoolean()){
+                this.posX=0;
+            }else{
+                this.posX=panel.getWidth();
+            }
+            this.posY = rnd.nextInt(panel.getHeight());
+
+        }else{
+
+            if(rnd.nextBoolean()){
+                this.posY=0;
+            }else{
+                this.posY=panel.getHeight();
+            }
+            this.posX = rnd.nextInt(panel.getWidth());
+
+
+        }
+        //為了測試,先固定大小
         this.point=new Point(posX,posY);
         //隨機寬
-        this.width = rnd.nextInt(200) + 100;
+        this.width = 100;//rnd.nextInt(200) +
         //隨機高
-        this.height = rnd.nextInt(200) + 100;
+        this.height =  100;//rnd.nextInt(200) +
         //測試直接設定畫布
 //        setSize((int)this.width,(int)this.height);
 
         //初始化中心座標
-        this.middleX = (int) ((posX + width) / 2);
-        this.middleY = (int) ((posY + height) / 2);
+        this.middleX = (int) ((point.x + width) / 2);
+        this.middleY = (int) ((point.y + height) / 2);
         //隨機顏色
         this.color = new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256), 128);
         //隨機計數,至少為10,每次間隔減少該值,歸零時將此物件刪除
-        this.lifetime = rnd.nextInt(10) + 10;
+        this.maxlife=rnd.nextInt(10) + 20;
+        this.lifetime =maxlife;
         this.angle= rnd.nextInt(360);
 
         //設定計時器;
 
-        this.timer = new Timer(100 + 100 * rnd.nextInt(5), listener);//反應間格
+        this.timer = new Timer(100 , listener);//反應間格(固定且較小的間隔會感覺比較平滑) + 100 * rnd.nextInt(5)
         timer.start();
+
+        //速度:
+        this.speed=speed+rnd.nextInt(10);
 
 
     }
@@ -126,15 +160,22 @@ public class Square implements ActionListener,Movement{//extends Canvas
 
         if (lifetime > 0) {
             lifetime--;//壽命處理
+
+
 //            int angle = new Random().nextInt(360);
 //            posX += speed * Math.cos(angle);
 //            posY += speed * Math.sin(angle);
             pointTranslate();
-            middleX= point.x/2;
-            middleY=point.y/2;
+            middleX= (point.x+(int)width)/2;
+            middleY=(point.y+(int)height)/2;
 
 //            middleX = (int) ((posX + width) / 2);
 //            middleY = (int) ((posY + height) / 2);
+
+            //改變透明度
+//            this.color=this.color.brighter();
+            color=new Color(color.getRed(),color.getGreen(),color.getBlue(),(int)128*lifetime/maxlife);
+           //this.color.getAlpha()*(lifetime/maxlife);
 
         } else {
             stop();
@@ -155,7 +196,14 @@ public class Square implements ActionListener,Movement{//extends Canvas
 
     @Override
     public void pointTranslate() {
-          point.translate((int) (speed * Math.cos(Math.toRadians(angle))), (int) (speed * Math.sin(Math.toRadians(angle))));
+        
+          if(Math.abs(middleX-sample.target.x)<=100 && Math.abs(middleY-sample.target.y)<=100 ){
+          }else{
+              angle=(int)Math.toDegrees(Math.atan2(sample.target.y-this.posY,sample.target.x-this.posX));
+              point.translate((int) (speed * Math.cos(Math.toRadians(angle))), (int) (speed * Math.sin(Math.toRadians(angle))));
+          }
+//          int speedX=  (int) (speed * Math.cos(Math.toRadians(angle)));
+//          int speedY=(int) (speed * Math.sin(Math.toRadians(angle)));
 
 
 

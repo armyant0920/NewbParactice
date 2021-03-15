@@ -10,11 +10,12 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://D:/download/mariadb-java-client-2.6.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../download/mariadb-java-client-2.6.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mssql-jdbc-7.4.1.jre8" level="project" />
   </component>
 </module>

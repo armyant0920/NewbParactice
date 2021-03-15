@@ -2,7 +2,7 @@ import Tool.Mask;
 
 import java.util.Scanner;
 
-public class helloworld {
+public class MaskTest {
     public static void main(String[] args) {
         System.out.println("HelloWorld");
         Scanner input=new Scanner(System.in);
@@ -16,7 +16,7 @@ public class helloworld {
         String replace=input.next();
         char c=replace.charAt(0);
 
-        System.out.println("遮蔽結果:"+Mask.hideMessage(s,start,length,c));
+        System.out.println("遮蔽結果:"+ Tool.Mask.hideMessage(s,start,length,c));
 
         //Mask mask=new Mask();
 
